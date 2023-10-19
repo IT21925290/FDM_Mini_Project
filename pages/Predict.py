@@ -2,151 +2,83 @@ import streamlit as st
 import numpy as np
 import pickle
 import pandas as pd
-
-dataset=pd.read_csv(r'..\Dataset\strokeDataset.csv')
-
-loaded_model = pickle.load(open('..\Script&model\trained_model.sav', 'rb'))
+from sklearn.preprocessing import LabelEncoder
 
 st.set_page_config(page_title="Stroke Prediction", page_icon="🩺", layout="wide", initial_sidebar_state="expanded")
 
-def stroke_prediction(input_data):
-        conv_nparr = np.asarray(input_data)
-
-        # reshape the array as we are predicting for one instance
-        reshaped = conv_nparr.reshape(1,-1)
-
-        prediction = loaded_model.predict(reshaped)
-        print(prediction)
-
-        if (prediction[0] == 0):
-            st.warning('You are not at risk of stroke')
-        else:
-             st.warning('You are at risk of stroke')
+# Load the SVM model
+loaded_model = pickle.load(open('trained_model.sav', 'rb'))
 
 def convert_data(data):
-     # Convert Marrital Status, Residence and Gender into 0's and 1's
-     data['gender']=data['gender'].apply(lambda x : 1 if x=='Male' else 0) 
-     data["Residence_type"] = data["Residence_type"].apply(lambda x: 1 if x=="Urban" else 0)
-     data["ever_married"] = data["ever_married"].apply(lambda x: 1 if x=="Yes" else 0)
+    # Define label encoders for categorical variables
+    label_encoders = {
+        'gender': LabelEncoder(),
+        'ever_married': LabelEncoder(),
+        'work_type': LabelEncoder(),
+        'Residence_type': LabelEncoder(),
+        'smoking_status': LabelEncoder()
+    }
+    
+    for feature, encoder in label_encoders.items():
+        data[feature] = encoder.fit_transform(data[feature])
 
+    return data
 
-def OnehotEncoding(data):
-      
-      #if Stroke or id column exist in dataset drop them
-      if 'id' in dataset.columns:
-          dataset.drop('id', axis=1, inplace=True)
+def stroke_prediction(input_data):
+    input_data = convert_data(input_data)
 
-      if 'stroke' in dataset.columns:
-          dataset.drop('stroke', axis=1, inplace=True)
-     
-     #concat to the bottom of the dataset
-      to_one_hotencode=pd.concat([dataset,data],axis=0,ignore_index=True)
-      
+    # Ensure that the input data has the expected feature names
+    expected_features = [
+        'gender', 'age', 'hypertension', 'heart_disease', 'ever_married', 'work_type', 'Residence_type',
+        'avg_glucose_level', 'bmi', 'smoking_status'
+    ]
+    
+    # Add any missing features with default values
+    for feature in expected_features:
+        if feature not in input_data:
+            input_data[feature] = 0
 
-      #one hot encode the data
-      data_dummies = to_one_hotencode[['smoking_status','work_type']]
-      data_dummies = pd.get_dummies(data_dummies, drop_first=False)
-      to_one_hotencode.drop(columns=['smoking_status','work_type'],inplace=True)
-      to_one_hotencode=to_one_hotencode.merge(data_dummies,left_index=True, right_index=True,how='left')
-      
-      #drop unknown smoking status if it exists
-      if 'smoking_status_Unknown' in to_one_hotencode.columns:
-          to_one_hotencode.drop('smoking_status_Unknown', axis=1, inplace=True)
-      
-      #return the last row of the dataset
-      #which is the user input
-      oh_data=to_one_hotencode.tail(1)
-      return oh_data
-     
-     
+    # Align the columns with the expected feature order
+    input_data = input_data[expected_features]
 
+    # Make the prediction
+    prediction = loaded_model.predict(input_data.values.reshape(1, -1))
 
-#form to get user input
+    if prediction[0] == 0:
+        st.warning('You are not at risk of stroke')
+    else:
+        st.warning('You are at risk of stroke')
+
+# Form to get user input
 with st.form(key='my_form'):
-    age = st.number_input(label='Enter your age',   min_value=0.1,max_value=120.0)
-
-    gender = st.selectbox(
-        label='Select your gender',
-        index=None, 
-        options=['Male', 'Female'])
-    
-    hypertension = st.selectbox(
-        label='Do you have hypertension?',
-        placeholder='Select Yes or No',
-        index=None, 
-        options=['Yes', 'No'])
-    hypertension = 1 if hypertension == 'Yes' else 0
-
-
-    heart_disease = st.selectbox(
-        label='Do you have any heart diseases?',
-        placeholder='Select Yes or No',
-        index=None, 
-        options=['Yes', 'No'])
-    heart_disease = 1 if heart_disease == 'Yes' else 0
-
-    ever_married = st.selectbox(
-        label='Are you married?',
-        placeholder='Select Yes or No',
-        index=None, 
-        options=['Yes', 'No'])
-
-    work_type = st.selectbox(
-        label='What is your work type?',
-        index=None, 
-        options=['children','Private','Self-employed','Government Job','Never worked'])
-    if work_type == 'Government Job':
-        work_type = 'Govt_job'
-    elif work_type == 'Never worked':
-        work_type = 'Never_worked'
-
-    Residence_type = st.selectbox(
-        label='What is your residence type?',
-        index=None, 
-        options=['Urban','Rural'])
-    
-    avg_glucose_level = st.number_input(label='Enter your average glucose level',   min_value=0.0,max_value=350.0)
-    if avg_glucose_level >=250 :
-            st.warning('You are aproching Dangerous glucose levels, reaching out to Medical care is recomended .')
-    
-    bmi = st.number_input(label='Enter your BMI',   min_value=0.0,max_value=100.0)
-
-    smoking_status = st.selectbox(
-        label='Do you smoke ?',
-        placeholder='Select a option',
-        index=None, 
-        options=['never smoked','formerly smoked','smokes'])
+    age = st.number_input(label='Enter your age', min_value=0, max_value=120)
+    gender = st.radio("Select your gender", options=["Male", "Female"])
+    hypertension = st.radio("Do you have hypertension?", options=["Yes", "No"])
+    heart_disease = st.radio("Do you have any heart diseases?", options=["Yes", "No"])
+    ever_married = st.radio("Are you married?", options=["Yes", "No"])
+    work_type = st.radio("What is your work type?", options=["children", "Private", "Self-employed", "Government Job", "Never worked"])
+    Residence_type = st.radio("What is your residence type?", options=["Urban", "Rural"])
+    avg_glucose_level = st.number_input(label='Enter your average glucose level', min_value=0.0, max_value=350.0)
+    bmi = st.number_input(label='Enter your BMI', min_value=0.0, max_value=100.0)
+    smoking_status = st.radio("Do you smoke?", options=["never smoked", "formerly smoked", "smokes"])
     
     if st.form_submit_button(label='Submit'):
-        if age == 0 or gender == ''or hypertension == '' or heart_disease == '' or work_type == '' or Residence_type == '' or avg_glucose_level == 0 or bmi == 0 or smoking_status == '':
+        # Check if any of the input fields are empty
+        if not age or not gender or not hypertension or not heart_disease or not ever_married or not work_type or not Residence_type or not avg_glucose_level or not bmi or not smoking_status:
             st.warning('Please fill in all fields.')
         else:
-            
+            # Create a DataFrame with the user input
             data = pd.DataFrame({
-                'gender': [gender],
                 'age': [age],
-                'hypertension': [hypertension],
-                'heart_disease': [heart_disease],
-                'ever_married': [ever_married],
-                'work_type': [work_type],
-                'Residence_type': [Residence_type],
+                'gender': [gender],
+                'hypertension': 1 if hypertension == "Yes" else 0,
+                'heart_disease': 1 if heart_disease == "Yes" else 0,
+                'ever_married': 1 if ever_married == "Yes" else 0,
+                'work_type': work_type,
+                'Residence_type': Residence_type,
                 'avg_glucose_level': [avg_glucose_level],
                 'bmi': [bmi],
-                'smoking_status': [smoking_status]
+                'smoking_status': smoking_status
             })
             
-
-            # Convert Marrital Status, Residence and Gender into 0's and 1's
-            convert_data(data)
-            
-            #one hot encode the user input data
-            encoded_data=OnehotEncoding(data)
-            
-            #applying processed data to the model
-            #predict the risk of stroke
-            stroke_prediction(encoded_data)
-           
-           
-
-
-
+            stroke_prediction(data)
