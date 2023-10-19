@@ -3,9 +3,9 @@ import numpy as np
 import pickle
 import pandas as pd
 
-dataset=pd.read_csv(r'C:\Users\nrhhe\Downloads\SLIIT\FDM\Datasets\strokeDataset.csv')
+dataset=pd.read_csv(r'..\Dataset\strokeDataset.csv')
 
-loaded_model = pickle.load(open('C:\\Users\\nrhhe\\OneDrive\\Documents\\SLIIT\\FDM\\web-app\\trained_model.sav', 'rb'))
+loaded_model = pickle.load(open('..\Script&model\trained_model.sav', 'rb'))
 
 st.set_page_config(page_title="Stroke Prediction", page_icon="🩺", layout="wide", initial_sidebar_state="expanded")
 
