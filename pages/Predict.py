@@ -3,13 +3,14 @@ import numpy as np
 import pickle
 import pandas as pd
 
-from sklearn.preprocessing import StandardScaler
+
 
 #loading the original dataset to get the columns(onehotencode columns)
 dataset=pd.read_csv(r'C:/Users/nrhhe/OneDrive/Documents/SLIIT/FDM/FDM-web-app/FDM_Mini_Project/Dataset/strokeDataset.csv')
 
 #loading the trained model
 loaded_model = pickle.load(open('C:/Users/nrhhe/OneDrive/Documents/SLIIT/FDM/FDM-web-app/FDM_Mini_Project/Script&model/trained_model.sav', 'rb'))
+
 
 
 def stroke_prediction(input_data):
@@ -26,11 +27,14 @@ def stroke_prediction(input_data):
         else:
              st.warning('You are at risk of stroke')
 
+
 def convert_data(data):
      # Convert Marrital Status, Residence and Gender into 0's and 1's
      data['gender']=data['gender'].apply(lambda x : 1 if x=='Male' else 0) 
      data["Residence_type"] = data["Residence_type"].apply(lambda x: 1 if x=="Urban" else 0)
      data["ever_married"] = data["ever_married"].apply(lambda x: 1 if x=="Yes" else 0)
+
+
 
 
 def OnehotEncoding(data):
