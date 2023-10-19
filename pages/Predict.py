@@ -3,6 +3,8 @@ import numpy as np
 import pickle
 import pandas as pd
 
+from sklearn.preprocessing import StandardScaler
+
 #loading the original dataset to get the columns(onehotencode columns)
 dataset=pd.read_csv(r'C:/Users/nrhhe/OneDrive/Documents/SLIIT/FDM/FDM-web-app/FDM_Mini_Project/Dataset/strokeDataset.csv')
 
@@ -58,9 +60,13 @@ def OnehotEncoding(data):
       #which is the user input
       oh_data=to_one_hotencode.tail(1)
       return oh_data
-     
-def scale_smote_data(data):
-     x=0  
+
+#commented bec of errors    
+# def scale_data(data):
+#     std = StandardScaler()
+#     scaled_data = std.fit_transform(data)
+#     return scaled_data
+    
 
 
 #form to get user input
@@ -147,6 +153,8 @@ with st.form(key='my_form'):
             #applying processed data to the model
             #predict the risk of stroke
             stroke_prediction(encoded_data)
+
+
            
            
 
