@@ -3,11 +3,12 @@ import numpy as np
 import pickle
 import pandas as pd
 
-dataset=pd.read_csv(r'..\Dataset\strokeDataset.csv')
+#loading the original dataset to get the columns(onehotencode columns)
+dataset=pd.read_csv(r'C:/Users/nrhhe/OneDrive/Documents/SLIIT/FDM/FDM-web-app/FDM_Mini_Project/Dataset/strokeDataset.csv')
 
-loaded_model = pickle.load(open('..\Script&model\trained_model.sav', 'rb'))
+#loading the trained model
+loaded_model = pickle.load(open('C:/Users/nrhhe/OneDrive/Documents/SLIIT/FDM/FDM-web-app/FDM_Mini_Project/Script&model/trained_model.sav', 'rb'))
 
-st.set_page_config(page_title="Stroke Prediction", page_icon="🩺", layout="wide", initial_sidebar_state="expanded")
 
 def stroke_prediction(input_data):
         conv_nparr = np.asarray(input_data)
@@ -58,7 +59,8 @@ def OnehotEncoding(data):
       oh_data=to_one_hotencode.tail(1)
       return oh_data
      
-     
+def scale_smote_data(data):
+     x=0  
 
 
 #form to get user input

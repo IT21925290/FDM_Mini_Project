@@ -11,7 +11,7 @@ def load_lottiefile(filepath: str):
         lottie_json = json.load(f)
     return lottie_json
 
-lottie_file= load_lottiefile(r'C:\Users\nrhhe\OneDrive\Documents\SLIIT\FDM\web-app\animation.json')
+lottie_file= load_lottiefile(r'C:\Users\nrhhe\OneDrive\Documents\SLIIT\FDM\FDM-web-app\FDM_Mini_Project\animations\animation.json')
 
 st.set_page_config(page_title="Stroke Prediction", page_icon="🩺", layout="wide", initial_sidebar_state="expanded")
 
@@ -26,7 +26,7 @@ st_lottie(
     speed=1, 
     reverse=False,
     loop=True,
-    quality='low',
+    quality='medium',
     
     height=500,
     key=None
