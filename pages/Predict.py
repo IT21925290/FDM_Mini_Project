@@ -2,21 +2,21 @@ import streamlit as st
 import numpy as np
 import pickle
 import pandas as pd
-
+import json
+from streamlit_lottie import st_lottie
 
 
 #loading the original dataset to get the columns(onehotencode columns)
-dataset=pd.read_csv(r'C:/Users/Admin/Desktop/FDM/FDM_Mini_Project/Dataset/strokeDataset.csv')
+#dataset=pd.read_csv(r'C:/Users/Admin/Desktop/FDM/FDM_Mini_Project/Dataset/strokeDataset.csv')
 
 #loading the trained model
-loaded_model = pickle.load(open('C:/Users/nrhhe/OneDrive/Documents/SLIIT/FDM/FDM-web-app/FDM_Mini_Project/Script&model/trained_model.sav', 'rb'))
+#loaded_model = pickle.load(open('C:/Users/nrhhe/OneDrive/Documents/SLIIT/FDM/FDM-web-app/FDM_Mini_Project/Script&model/trained_model.sav', 'rb'))
 
 #loaded_model = pickle.load(open('C:/Users/nrhhe/OneDrive/Documents/SLIIT/FDM/FDM-web-app/FDM_Mini_Project/Script&model/trained_model.sav', 'rb'))
 
-#dataset=pd.read_csv(r'C:\\Users\\Admin\\Desktop\\FDM\\FDM_Mini_Project\\Dataset\\strokeDataset.csv')
+dataset=pd.read_csv(r'C:\\Users\\Admin\\Desktop\\FDM\\FDM_Mini_Project\\Dataset\\strokeDataset.csv')
 
-#loaded_model = pickle.load(open('C:\\Users\\Admin\\Desktop\\FDM\\FDM_Mini_Project\\Script&model\\logistic_reg_model2.sav', 'rb'))
-
+loaded_model = pickle.load(open('C:\\Users\\Admin\\Desktop\\FDM\\FDM_Mini_Project\\Script&model\\logistic_reg_model2.sav', 'rb'))
 
 
 def stroke_prediction(input_data):
@@ -36,9 +36,9 @@ def stroke_prediction(input_data):
 
 def convert_data(data):
      # Convert Marrital Status, Residence and Gender into 0's and 1's
-     data['gender']=data['gender'].apply(lambda x : 1 if x=='Male' else 0) 
-     data["Residence_type"] = data["Residence_type"].apply(lambda x: 1 if x=="Urban" else 0)
-     data["ever_married"] = data["ever_married"].apply(lambda x: 1 if x=="Yes" else 0)
+        data['gender']=data['gender'].apply(lambda x : 1 if x=='Male' else 0) 
+        data["Residence_type"] = data["Residence_type"].apply(lambda x: 1 if x=="Urban" else 0)
+        data["ever_married"] = data["ever_married"].apply(lambda x: 1 if x=="Yes" else 0)
 
 
 
@@ -163,10 +163,6 @@ with st.form(key='my_form'):
             #applying processed data to the model
             #predict the risk of stroke
             stroke_prediction(encoded_data)
-
-
-           
-           
 
 
 

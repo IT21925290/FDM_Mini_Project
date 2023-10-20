@@ -10,7 +10,7 @@ from streamlit_echarts import st_echarts
 
 st.set_page_config(page_title="Stroke Prediction", page_icon="🩺", layout="centered", initial_sidebar_state="expanded")
 
-dataframe = pd.read_csv(r'C:\Users\nrhhe\OneDrive\Documents\SLIIT\FDM\FDM-web-app\FDM_Mini_Project\Dataset\strokeDataset.csv')
+dataframe = pd.read_csv(r'C:\Users\Admin\Desktop\FDM\FDM_Mini_Project\Dataset\strokeDataset.csv')
 
 
 st.subheader('Count of stroke patients categorized by Age')
