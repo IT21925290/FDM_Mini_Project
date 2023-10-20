@@ -13,6 +13,12 @@ loaded_model = pickle.load(open('C:/Users/nrhhe/OneDrive/Documents/SLIIT/FDM/FDM
 
 #loaded_model = pickle.load(open('C:/Users/nrhhe/OneDrive/Documents/SLIIT/FDM/FDM-web-app/FDM_Mini_Project/Script&model/trained_model.sav', 'rb'))
 
+#dataset=pd.read_csv(r'C:\\Users\\Admin\\Desktop\\FDM\\FDM_Mini_Project\\Dataset\\strokeDataset.csv')
+
+#loaded_model = pickle.load(open('C:\\Users\\Admin\\Desktop\\FDM\\FDM_Mini_Project\\Script&model\\logistic_reg_model2.sav', 'rb'))
+
+
+
 def stroke_prediction(input_data):
         conv_nparr = np.asarray(input_data)
 
