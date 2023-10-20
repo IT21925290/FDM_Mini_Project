@@ -13,6 +13,9 @@ loaded_model = pickle.load(open('C:/Users/nrhhe/OneDrive/Documents/SLIIT/FDM/FDM
 
 #loaded_model = pickle.load(open('C:/Users/nrhhe/OneDrive/Documents/SLIIT/FDM/FDM-web-app/FDM_Mini_Project/Script&model/trained_model.sav', 'rb'))
 
+
+
+
 def stroke_prediction(input_data):
         conv_nparr = np.asarray(input_data)
 
