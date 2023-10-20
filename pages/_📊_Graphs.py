@@ -50,4 +50,3 @@ fig = px.histogram(dataframe[dataframe['stroke']==1], x="avg_glucose_level", nbi
 st.plotly_chart(fig)
 
 st.divider()
-st.subheader('Proportion Of Different Work Types Among Stroke Population')
