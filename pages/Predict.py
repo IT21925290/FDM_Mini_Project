@@ -6,7 +6,7 @@ import pandas as pd
 
 
 #loading the original dataset to get the columns(onehotencode columns)
-dataset=pd.read_csv(r'C:/Users/nrhhe/OneDrive/Documents/SLIIT/FDM/FDM-web-app/FDM_Mini_Project/Dataset/strokeDataset.csv')
+dataset=pd.read_csv(r'C:/Users/Admin/Desktop/FDM/FDM_Mini_Project/Dataset/strokeDataset.csv')
 
 #loading the trained model
 loaded_model = pickle.load(open('C:/Users/nrhhe/OneDrive/Documents/SLIIT/FDM/FDM-web-app/FDM_Mini_Project/Script&model/trained_model.sav', 'rb'))

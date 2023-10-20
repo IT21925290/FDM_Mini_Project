@@ -7,7 +7,7 @@ st.title('This is out DATA SET page')
 
 
 
-dataframe =pd.read_csv(r'C:\Users\nrhhe\OneDrive\Documents\SLIIT\FDM\FDM-web-app\FDM_Mini_Project\Dataset\strokeDataset.csv')
+dataframe =pd.read_csv(r'C:\Users\Admin\Desktop\FDM\FDM_Mini_Project\Dataset\strokeDataset.csv')
 dataframe
 
 
