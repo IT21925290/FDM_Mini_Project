@@ -188,8 +188,8 @@ with col2:
         def load_lottiefile(filepath: str):
             with open(filepath, "r") as f:
                 return json.load(f)
-            
-        lottie_coding = load_lottiefile("C:\\Users\\Admin\\Desktop\\FDM\\FDM_Mini_Project\\animations\\p3.json")
+        lottie_coding = load_lottiefile("C:\\Users\\nrhhe\\OneDrive\\Documents\\SLIIT\\FDM\\FDM-web-app\\FDM_Mini_Project\\animations\\p3.json")    
+        #lottie_coding = load_lottiefile("C:\\Users\\Admin\\Desktop\\FDM\\FDM_Mini_Project\\animations\\p3.json")
         st_lottie(
             lottie_coding,
             speed =1,
