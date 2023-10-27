@@ -15,7 +15,15 @@ dataset=pd.read_csv(r"./Dataset/strokeDataset.csv")
 loaded_model = pickle.load(open('C:/Users/Admin/Desktop/FDM/FDM_Mini_Project/Script&model/trained_model.sav', 'rb'))
 #loaded_model = pickle.load(open('C:\\Users\\Admin\\Desktop\\FDM\\FDM_Mini_Project\\Script&model\\logistic_reg_model2.sav', 'rb'))
 
-col1, col2 = st.columns(2)
+
+
+st.header('Predicting Risk of Stroke ',divider=True)
+st.write("Provide us with your clinical details using the below form and we will predict your risk of you  getting a stroke.")
+st.divider()
+
+subcol1, subcol2 = st.columns([1,1])
+
+col1, col2 = st.columns([3,2])
 with col1:
         def stroke_prediction(input_data):
                 conv_nparr = np.asarray(input_data)
@@ -29,7 +37,7 @@ with col1:
                 if (prediction[0] == 0):
                     st.warning('You are not at risk of stroke')
                 else:
-                    st.warning('You are at risk of stroke')
+                    st.warning('You are at risk of getting a stroke , please consult a doctor')
 
 
         def convert_data(data):
@@ -93,7 +101,7 @@ with col1:
                 options=['Yes', 'No'])
             hypertension = 1 if hypertension == 'Yes' else 0
 
-
+                              
             heart_disease = st.selectbox(
                 label='Do you have any heart diseases?',
                 placeholder='Select Yes or No',
@@ -168,7 +176,8 @@ with col2:
                 return json.load(f)
 
         
-        lottie_coding = load_lottiefile("C:\\Users\\Admin\\Desktop\\Fdm_app\\app\\images\\p2.json")
+        lottie_coding = load_lottiefile("C:\\Users\\nrhhe\\OneDrive\\Documents\\SLIIT\\FDM\\FDM-web-app\\FDM_Mini_Project\\animations\\p2.json")
+        #lottie_coding = load_lottiefile("C:\\Users\\Admin\\Desktop\\Fdm_app\\app\\images\\p2.json")
         st_lottie(
             lottie_coding,
             speed =1,
@@ -179,8 +188,8 @@ with col2:
         def load_lottiefile(filepath: str):
             with open(filepath, "r") as f:
                 return json.load(f)
-            
-        lottie_coding = load_lottiefile("C:\\Users\\Admin\\Desktop\\FDM\\FDM_Mini_Project\\animations\\p3.json")
+        lottie_coding = load_lottiefile("C:\\Users\\nrhhe\\OneDrive\\Documents\\SLIIT\\FDM\\FDM-web-app\\FDM_Mini_Project\\animations\\p3.json")    
+        #lottie_coding = load_lottiefile("C:\\Users\\Admin\\Desktop\\FDM\\FDM_Mini_Project\\animations\\p3.json")
         st_lottie(
             lottie_coding,
             speed =1,
