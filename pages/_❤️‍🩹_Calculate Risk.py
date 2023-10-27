@@ -12,7 +12,7 @@ dataset=pd.read_csv(r"./Dataset/strokeDataset.csv")
 
 
 #loading the trained model
-loaded_model = pickle.load(open('C:/Users/Admin/Desktop/FDM/FDM_Mini_Project/Script&model/trained_model.sav', 'rb'))
+loaded_model = pickle.load(open('./Script&model/trained_model.sav', 'rb'))
 #loaded_model = pickle.load(open('C:\\Users\\Admin\\Desktop\\FDM\\FDM_Mini_Project\\Script&model\\logistic_reg_model2.sav', 'rb'))
 
 
@@ -176,7 +176,7 @@ with col2:
                 return json.load(f)
 
         
-        lottie_coding = load_lottiefile("C:\\Users\\nrhhe\\OneDrive\\Documents\\SLIIT\\FDM\\FDM-web-app\\FDM_Mini_Project\\animations\\p2.json")
+        lottie_coding = load_lottiefile("./animations/p2.json")
         #lottie_coding = load_lottiefile("C:\\Users\\Admin\\Desktop\\Fdm_app\\app\\images\\p2.json")
         st_lottie(
             lottie_coding,
@@ -188,7 +188,7 @@ with col2:
         def load_lottiefile(filepath: str):
             with open(filepath, "r") as f:
                 return json.load(f)
-        lottie_coding = load_lottiefile("C:\\Users\\nrhhe\\OneDrive\\Documents\\SLIIT\\FDM\\FDM-web-app\\FDM_Mini_Project\\animations\\p3.json")    
+        lottie_coding = load_lottiefile("./animations/p3.json")    
         #lottie_coding = load_lottiefile("C:\\Users\\Admin\\Desktop\\FDM\\FDM_Mini_Project\\animations\\p3.json")
         st_lottie(
             lottie_coding,

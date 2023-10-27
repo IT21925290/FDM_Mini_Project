@@ -11,7 +11,7 @@ def load_lottiefile(filepath: str):
         lottie_json = json.load(f)
     return lottie_json
 
-lottie_file= load_lottiefile(r'C:\\Users\\Admin\\Desktop\\FDM\\FDM_Mini_Project\\animations\\animation.json')
+lottie_file= load_lottiefile(r'./animations/animation.json')
 #lottie_file= load_lottiefile(r'C:\\Users\\Admin\\Desktop\\FDM\\FDM_Mini_Project\\animations\\animation.json')
 
 st.set_page_config(page_title="Stroke Prediction", page_icon="🩺", layout="wide", initial_sidebar_state="expanded")
