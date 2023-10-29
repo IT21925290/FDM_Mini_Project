@@ -4,6 +4,7 @@ import pickle
 import pandas as pd
 import json
 from streamlit_lottie import st_lottie
+from sklearn.preprocessing import StandardScaler
 
 
 #loading the original dataset to get the columns(onehotencode columns)
@@ -14,7 +15,7 @@ dataset=pd.read_csv(r"./Dataset/strokeDataset.csv")
 
 #loading the trained model
 
-loaded_model = pickle.load(open('./Script&model/trained_model.sav', 'rb'))
+loaded_model = pickle.load(open('./Script&model/trained_model2.sav', 'rb'))
 #loaded_model = pickle.load(open('C:\\Users\\Admin\\Desktop\\FDM\\FDM_Mini_Project\\Script&model\\logistic_reg_model2.sav', 'rb'))
 
 
@@ -32,7 +33,7 @@ with col1:
 
                 # reshape the array as we are predicting for one instance
                 reshaped = conv_nparr.reshape(1,-1)
-
+                
                 prediction = loaded_model.predict(reshaped)
                 print(prediction)
 
